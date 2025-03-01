@@ -1,0 +1,15 @@
+# Node.js
+node_modules/
+pnpm-lock.json
+
+# TypeScript
+dist/
+
+# OS generated files
+.DS_Store
+
+# Environment variables
+.env
+
+# Coverage reports
+coverage/
