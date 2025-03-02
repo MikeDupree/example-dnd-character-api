@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "6cbea37d-26f6-4410-8a62-12facb2be530",
+		"name": "DND Character API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2085825"
+	},
+	"item": [
+		{
+			"name": "Get Character",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/character/briv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"character",
+						"briv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Damage Character",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 10,\n    \"damageType\": \"slashing\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/character/briv/damage",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"character",
+						"briv",
+						"damage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Heal Character",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/character/briv/heal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"character",
+						"briv",
+						"heal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Apply Character Temp HP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/character/briv/heal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"character",
+						"briv",
+						"heal"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

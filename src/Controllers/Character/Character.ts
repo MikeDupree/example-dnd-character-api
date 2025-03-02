@@ -1,23 +1,34 @@
-import { Character, CharacterState, Defense } from '@/Character/Character.types';
+import { Character, CharacterState, Defense } from './Character.types';
 
+// Note: Would create a Storage provider that accepts plugins to allow
+//       swapping of storage methods, such as in-memory, file, or database
 const characterState: Map<string, CharacterState> = new Map();
 
-// Get a character from the state
-const getCharacter = (characterId: string): CharacterState | undefined => {
-  return characterState.get(characterId);
+/**
+ * Get a character from the state
+ */
+export const getCharacter = (characterId: string): CharacterState | undefined => {
+  if (characterId === '') return;
+  return characterState.get(characterId.toLowerCase());
 };
 
-// Set a character in the state
-const setCharacter = (characterId: string, character: Character): void => {
-  characterState.set(characterId, {
+/**
+ * Set a character in the state
+ */
+export const setCharacter = (characterId: string, character: Character): void => {
+  if (characterId === '') return;
+
+  characterState.set(characterId.toLowerCase(), {
     ...character,
     tempHitPoints: 0,
     maxHitPoints: character.hitPoints,
   });
 };
 
-// Heal a character by a given amount
-const heal = (characterId: string, amount: number): void => {
+/**
+ * Heal a character by a given amount
+ */
+export const heal = (characterId: string, amount: number): void => {
   const character = getCharacter(characterId);
 
   if (!character) {
@@ -28,8 +39,10 @@ const heal = (characterId: string, amount: number): void => {
   character.hitPoints = Math.min(newHp, character.maxHitPoints);
 };
 
-// Apply temporary hit points to a character
-const applyTempHp = (characterId: string, amount: number): void => {
+/**
+ * Apply temporary hit points to a character
+ */
+export const applyTempHp = (characterId: string, amount: number): void => {
   const character = getCharacter(characterId);
 
   if (!character) {
@@ -54,8 +67,10 @@ type DamageTypes =
   | 'radiant'
   | 'force';
 
-// Get the strongest defense for a given damage type
-// Note: Could break out damage / defense logic into separate modules for better separation of concerns
+/**
+ * Get the strongest defense for a given damage type
+ * Note: Normally would break out damage / defense / healing logic into separate modules for better separation of concerns
+ */
 const getDefenseByType = (defenses: Defense[], type: string): Defense | undefined => {
   const defensePriority: { [key: string]: number } = {
     immunity: 3,
@@ -79,7 +94,9 @@ const getDefenseByType = (defenses: Defense[], type: string): Defense | undefine
   return strongestDefense;
 };
 
-// Get Damage amount after applying defenses
+/**
+ * Get the damage amount after applying defenses
+ */
 const getDamageAfterDefense = (damageAmount: number, defense?: Defense): number => {
   if (defense) {
     switch (defense.defense) {
@@ -94,8 +111,10 @@ const getDamageAfterDefense = (damageAmount: number, defense?: Defense): number 
   return damageAmount;
 };
 
-// Apply damage to a character
-const damage = (characterId: string, amount: number, type: DamageTypes): void => {
+/**
+ * Damage a character by a given amount
+ */
+export const damage = (characterId: string, amount: number, type: DamageTypes): void => {
   const character = getCharacter(characterId);
 
   if (!character) {
@@ -114,12 +133,4 @@ const damage = (characterId: string, amount: number, type: DamageTypes): void =>
 
   // Apply remaining damage to hit points
   character.hitPoints = Math.max(character.hitPoints - damageToApply, 0);
-};
-
-export default {
-  getCharacter,
-  setCharacter,
-  heal,
-  applyTempHp,
-  damage,
 };
